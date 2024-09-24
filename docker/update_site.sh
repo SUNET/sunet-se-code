@@ -9,6 +9,7 @@ log() {
 
 # Base repository directory
 repo_dir="/opt/sunet-se-code"
+bin_dir="/usr/local/bin"
 
 # Start logging
 log "Update started."
@@ -36,7 +37,7 @@ git pull &>> "$log_file"
 log "Updated content repository."
 
 # Retrieve JIRA tickets
-"${repo_dir}/get-jira-tickets.sh" -c get-jira-tickets.conf -p "SUNET_JIRA_PASSWORD" &>> "$log_file"
+"${bin_dir}/get-jira-issues.sh" -c get-jira-issues.conf -p "SUNET_JIRA_PASSWORD" &>> "$log_file"
 log "Retrieved JIRA tickets."
 
 cd "$repo_dir" || exit 1
