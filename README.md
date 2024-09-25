@@ -16,10 +16,11 @@ it in a docker container.
 The service is run as a docker container, so we need docker in the machine that
 will host the site.
 
-There are 2 locations in this service: the public location that will serve the
-static site, and a restricted location (protected with basic auth credentials)
-offering the `/refresh-content` endpoint, which when accessed will trigger
-fetching all the new content from the content repo and building it.
+The container runs an NGINX process, with 2 locations: the public location that
+will serve the static site, and a restricted location (protected with basic
+auth credentials) offering the `/refresh-content` endpoint, which when accessed
+will trigger fetching all the new content from the content repo and building
+it.
 
 Clone the code repo and cd to the docker container:
 
