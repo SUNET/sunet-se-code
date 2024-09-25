@@ -66,6 +66,13 @@ Once the image is built, run it, for example with:
 $ docker run -d -p 80:80 --name sunet sunet-se:latest
 ```
 
+Finally, to retrieve JIRA issues to display them in the `arenden` secion of the site,
+set up a cron job in the host machine that executes the command:
+
+```bash
+docker exec sunet bash -c "/usr/local/bin/update_issues.sh"
+```
+
 ## Installation in the editor's machine.
 
 The editor's machine needs to have git and obsidian installed.

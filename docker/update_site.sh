@@ -36,10 +36,6 @@ git checkout GIT_BRANCH &>> "$log_file"
 git pull &>> "$log_file"
 log "Updated content repository."
 
-# Retrieve JIRA tickets
-"${bin_dir}/get-jira-issues.sh" -c get-jira-issues.conf -p "SUNET_JIRA_PASSWORD" &>> "$log_file"
-log "Retrieved JIRA tickets."
-
 cd "$repo_dir" || exit 1
 
 # Activate virtual environment and build the site

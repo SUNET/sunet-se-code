@@ -65,14 +65,16 @@ COPY refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
 COPY update_site.sh /usr/local/bin/update_site.sh
 COPY get-jira-issues.sh /usr/local/bin/get-jira-issues.sh
 COPY get-jira-issues.conf /usr/local/bin/get-jira-issues.conf
+COPY update_issues.sh /usr/local/bin/update_issues.sh
 
 RUN chmod 755 /usr/local/bin/update_site.sh
 RUN chmod 755 /usr/local/bin/get-jira-issues.sh
+RUN chmod 755 /usr/local/bin/update_issues.sh
 
 RUN sed -i "s/SERVER_NAME/$SERVER_NAME/g" /usr/local/openresty/nginx/conf/nginx.conf
 RUN sed -i "s/GIT_BRANCH/$GIT_BRANCH/g" /usr/local/bin/update_site.sh
 
-RUN sed -i "s/SUNET_JIRA_PASSWORD/$SUNET_JIRA_PASSWORD/g" /usr/local/bin/update_site.sh
+RUN sed -i "s/SUNET_JIRA_PASSWORD/$SUNET_JIRA_PASSWORD/g" /usr/local/bin/update_issues.sh
 
 RUN sed -i "s|JIRA_BASEURL_PLACEHOLDER|$JIRA_BASEURL|g" /usr/local/bin/get-jira-issues.conf
 RUN sed -i "s/JIRA_USERNAME_PLACEHOLDER/$JIRA_USERNAME/g" /usr/local/bin/get-jira-issues.conf
