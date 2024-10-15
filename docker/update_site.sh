@@ -31,8 +31,8 @@ cd "${repo_dir}/sunet-se-content" || exit 1
 # git stash push --include-untracked &>> "$log_file"
 
 git fetch --all &>> "$log_file"
-git reset --hard origin/GIT_BRANCH &>> "$log_file"
-git checkout GIT_BRANCH &>> "$log_file"
+git reset --hard "origin/$GIT_BRANCH" &>> "$log_file"
+git checkout "$GIT_BRANCH" &>> "$log_file"
 git pull &>> "$log_file"
 log "Updated content repository."
 

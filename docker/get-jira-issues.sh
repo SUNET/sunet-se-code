@@ -18,7 +18,7 @@ trap clean_up ERR EXIT SIGINT SIGTERM
 
 usage() {
     cat <<USAGE_TEXT
-Usage: ${script_name} [-h | --help] [-f <configfile>] [-p <SUNET_JIRA_PASSWORD>]
+Usage: ${script_name} [-h | --help]
 
 DESCRIPTION
 
@@ -28,11 +28,6 @@ OPTIONS:
 
 -h, --help
         Print this help and exit.
--f
-        Path to the configuration file. See the companion "get-jira-issues.conf.example" for details.
-        If not provided, the script will attempt to read ./get-jira-issues.conf
--p
-        JIRA password
 
 USAGE_TEXT
 }
@@ -61,7 +56,7 @@ parse_user_options() {
 while true; do
     case "${1}" in
 #-p)
-            #SUNET_JIRA_PASSWORD="${2}"
+            #JIRA_PASSWORD="${2}"
             #shift
             #shift
             #;;

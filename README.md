@@ -29,8 +29,13 @@ $ git clone git@github.com:SUNET/sunet-se-code.git
 $ cd sunet-se-code/docker
 ```
 
-To build the docker image we need to provide it with a few build variables,
-provided with `docker build --build-arg ...`.
+Now we need to build the docker image:
+
+```bash
+$ docker build -t sunet-se:latest .
+```
+
+Once the image is built, to run it, we need to provide a few environment variables.
 
 Required variables:
 
@@ -55,16 +60,10 @@ Optional variables:
 - MAX_CLOSED_AGE: Only retrieve closed tickets that were closed less than this
   number of days ago. Default "30d".
 
-Example build command:
+So, a possible command to run the image:
 
 ```bash
-$ docker build --build-arg SUNET_JIRA_PASSWORD=secret1 --build-arg REFRESH_PASSWORD=secret2 -t sunet-se:latest .
-```
-
-Once the image is built, run it, for example with:
-
-```bash
-$ docker run -d -p 80:80 --name sunet sunet-se:latest
+$ docker run -d -p 80:80 --env SUNET_JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
 ```
 
 Finally, to retrieve JIRA issues to display them in the `arenden` secion of the site,

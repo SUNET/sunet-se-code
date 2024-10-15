@@ -6,8 +6,8 @@ if [ -z "$REFRESH_PASSWORD" ]; then
   exit 1
 fi
 
-if [ -z "$REFSUNET_JIRA_PASSWORD" ]; then
-  echo "Environment variable REFSUNET_JIRA_PASSWORD is needed to run container"
+if [ -z "$JIRA_PASSWORD" ]; then
+  echo "Environment variable JIRA_PASSWORD is needed to run container"
   exit 1
 fi
 

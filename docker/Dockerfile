@@ -5,7 +5,7 @@ ENV NGINX_VERSION 1.25.3.1
 
 # required
 ENV REFRESH_PASSWORD="dummy"
-ENV SUNET_JIRA_PASSWORD="dummy"
+ENV JIRA_PASSWORD="dummy"
 
 # optional
 ENV SERVER_NAME="sunet.se"
