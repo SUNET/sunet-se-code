@@ -18,7 +18,7 @@ log "Issue update started."
 set -e
 
 # Retrieve JIRA tickets
-"${bin_dir}/get-jira-issues.sh" -c get-jira-issues.conf -p "SUNET_JIRA_PASSWORD" &>> "$log_file"
+"${bin_dir}/get-jira-issues.sh" &>> "$log_file"
 log "Retrieved JIRA tickets."
 
 cd "$repo_dir" || exit 1

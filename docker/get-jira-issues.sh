@@ -53,23 +53,18 @@ die() {
 parse_user_options() {
     local -r args=("${@}")
     local opts
-    opts=$(getopt --options p:,f:,h --long help -- "${args[@]}" 2> /dev/null) || {
+    opts=$(getopt --options p:,h --long help -- "${args[@]}" 2> /dev/null) || {
         usage
         die "error: parsing options" "${error_parsing_options}"
     }
     eval set -- "${opts}"
 while true; do
     case "${1}" in
--f)
-            readonly conf_file="${2}"
-            shift
-            shift
-            ;;
--p)
-            SUNET_JIRA_PASSWORD="${2}"
-            shift
-            shift
-            ;;
+#-p)
+            #SUNET_JIRA_PASSWORD="${2}"
+            #shift
+            #shift
+            #;;
 --help|-h)
             usage
 exit 0
@@ -116,19 +111,9 @@ fi
 # Parse CLI options
 parse_user_options "${@}"
 
-# Read configuration
-config_file=${conf_file:-'get-jira-issues.conf'}
-if [[ ! -f "${config_file}" ]]; then
-    usage
-    printf "\n\n"
-    die "error reading configuration file: ${config_file}" "${error_reading_conf_file}"
-fi
-# shellcheck source=./get-jira-issues.conf.example
-source "${config_file}"
-
 baseurl="$JIRA_BASEURL"
 username="$JIRA_USERNAME"
-password=${SUNET_JIRA_PASSWORD:-$JIRA_PASSWORD}
+password="$JIRA_PASSWORD"
 output="$JIRA_TICKETS_OUTPUT"
 project="$JIRA_PROJECT"
 daysold="$MAX_CLOSED_AGE"
