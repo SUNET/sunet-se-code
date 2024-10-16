@@ -11,6 +11,8 @@ content as an obsidian vault, and the other is the present one, that has the
 code to build the html site from the markdown in the content repo and to serve
 it in a docker container.
 
+Development is done in the staging branch, then merged to main.
+
 ## Installation on the server machine.
 
 The service is run as a docker container, so we need docker in the machine that

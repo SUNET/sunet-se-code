@@ -1,3 +1,4 @@
 [submodule "content"]
 	path = sunet-se-content
 	url = git@github.com:SUNET/sunet-se-content.git
+  branch = staging
