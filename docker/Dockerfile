@@ -9,7 +9,7 @@ ENV JIRA_PASSWORD="dummy"
 
 # optional
 ENV SERVER_NAME="sunet.se"
-ENV GITHUB_CODE_REPO="https://github.com/SUNET/sunet-se-code"
+ENV GITHUB_CODE_REPO="git@github.com/SUNET/sunet-se-code"
 ENV GIT_BRANCH="staging"
 ENV REFRESH_USERNAME="editor"
 ENV JIRA_BASEURL="https://jira-test.sunet.se/rest/api/2"
@@ -21,7 +21,7 @@ ENV MAX_CLOSED_AGE="30d"
 # Install needed software
 
 RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get install -y curl wget gnupg ca-certificates git nodejs \
+    apt-get install -y curl wget gnupg ca-certificates git nodejs ssh \
     python3 python3-venv python3-pip npm openssl gettext-base && \
     rm -rf /var/lib/apt/lists/*
 
@@ -32,6 +32,10 @@ RUN echo "deb http://openresty.org/package/debian bookworm openresty" \
 RUN apt-get -y update && \
     apt-get -y install --no-install-recommends openresty && \
     rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /root/.ssh
+COPY ssh/server_key /root/.ssh/server_key
+COPY ssh/server_key.pub /root/.ssh/server_key.pub
 
 RUN git clone --branch $GIT_BRANCH $GITHUB_CODE_REPO /opt/sunet-se-code
 

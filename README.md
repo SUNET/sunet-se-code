@@ -29,13 +29,30 @@ $ git clone git@github.com:SUNET/sunet-se-code.git
 $ cd sunet-se-code/docker
 ```
 
+First we need a SSH key pair. We create it like this (without adding a
+passphrase when prompted):
+
+```bash
+$ mkdir ssh
+$ ssh-keygen -t ed25519 -C "info@sunet.se" -f "ssh/server_key"
+```
+
+Now pick the public key and add it to a github account with access to the
+sunet-se repos. We need to do this before building the docker image.
+
 Now we need to build the docker image:
 
 ```bash
 $ docker build -t sunet-se:latest .
 ```
 
-Once the image is built, to run it, we need to provide a few environment variables.
+Once the image is built, we can remove the generated ssh keys from the host.
+
+```bash
+$ rm -rf ssh
+```
+
+Then, to run a container, we need to provide a few environment variables.
 
 Required variables:
 
