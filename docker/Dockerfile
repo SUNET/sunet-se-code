@@ -68,6 +68,9 @@ COPY ./get-jira-issues.sh /opt/templates/get-jira-issues.sh
 COPY ./update_issues.sh /usr/local/bin/update_issues.sh
 RUN chmod 755 /usr/local/bin/update_issues.sh
 
+COPY ./refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
+RUN chmod 755 /usr/local/openresty/nginx/conf/refresh.lua
+
 COPY ./start.sh /start.sh
 
 EXPOSE 80
