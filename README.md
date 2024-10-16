@@ -48,7 +48,8 @@ Now we need to build the docker image:
 $ docker build -t sunet-se:latest .
 ```
 
-Once the image is built, we can remove the generated ssh keys from the host.
+Once the image is built, we can remove the generated ssh keys from the host (or
+we can keep them for future code updates)
 
 ```bash
 $ rm -rf ssh
