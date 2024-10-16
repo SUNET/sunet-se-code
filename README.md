@@ -48,7 +48,8 @@ Now we need to build the docker image:
 $ docker build -t sunet-se:latest .
 ```
 
-Once the image is built, we can remove the generated ssh keys from the host.
+Once the image is built, we can remove the generated ssh keys from the host (or
+we can keep them for future code updates)
 
 ```bash
 $ rm -rf ssh
@@ -68,7 +69,7 @@ Optional variables:
 
 - SERVER_NAME The hostname of the service, e.g. staging.sunet.se. Default "sunet.se"
 - GITHUB_CODE_REPO: Github repo with the sunet.se code. Default
-  "https://github.com/SUNET/sunet-se-code"
+  "git@github.com:SUNET/sunet-se-code"
 - GIT_BRANCH: the git branch of the content repo that will be used to build the
   site. Default "staging".
 - REFRESH_USERNAME The basic auth username for the `/refresh-content` endpoint.

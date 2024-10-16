@@ -20,6 +20,8 @@ set -e
 # Change directory to repository base
 cd "$repo_dir" || exit 1
 
+export GIT_SSH_COMMAND="ssh -i /root/.ssh/server_key -o IdentitiesOnly=yes"
+
 # Pull changes from the remote origin
 git pull &>> "$log_file"
 log "Pulled changes from remote."

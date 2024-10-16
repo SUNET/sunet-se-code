@@ -47,13 +47,13 @@ if [ -z "$MAX_CLOSED_AGE" ]; then
   export MAX_CLOSED_AGE="30d"
 fi
 
+envsubst '$SERVER_NAME' < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
 
-envsubst < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
-
-envsubst < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
+envsubst '$GIT_BRANCH' < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
 chmod 755 /usr/local/bin/update_site.sh
 
-envsubst < /opt/templates/get-jira-issues.sh > /usr/local/bin/get-jira-issues.sh
+JIRA_VARS='$JIRA_BASEURL $JIRA_USERNAME $JIRA_PASSWORD $JIRA_TICKETS_OUTPUT $JIRA_PROJECT $MAX_CLOSED_AGE'
+envsubst "$JIRA_VARS" < /opt/templates/get-jira-issues.sh > /usr/local/bin/get-jira-issues.sh
 chmod 755 /usr/local/bin/get-jira-issues.sh
 
 HASHED_REFRESH_PASSWORD="$(openssl passwd -apr1 "$REFRESH_PASSWORD")"
@@ -63,4 +63,5 @@ envsubst < /opt/templates/htpasswd > /usr/local/openresty/nginx/conf/.htpasswd
 	 
 # Start OpenResty
 exec start-stop-daemon --start --exec \
-  /usr/local/openresty/nginx/sbin/nginx -c /usr/local/openresty/nginx/conf/nginx.conf -g daemon off
+  /usr/local/openresty/nginx/sbin/nginx \
+  --  -c /usr/local/openresty/nginx/conf/nginx.conf -g 'daemon off;'
