@@ -48,7 +48,7 @@ if [ -z "$MAX_CLOSED_AGE" ]; then
 fi
 
 
-envsubst < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
+envsubst '$SERVER_NAME' < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
 
 envsubst < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
 chmod 755 /usr/local/bin/update_site.sh
