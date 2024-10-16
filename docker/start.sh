@@ -63,4 +63,5 @@ envsubst < /opt/templates/htpasswd > /usr/local/openresty/nginx/conf/.htpasswd
 	 
 # Start OpenResty
 exec start-stop-daemon --start --exec \
-  /usr/local/openresty/nginx/sbin/nginx -c /usr/local/openresty/nginx/conf/nginx.conf -g daemon off
+  /usr/local/openresty/nginx/sbin/nginx \
+  --  -c /usr/local/openresty/nginx/conf/nginx.conf -g daemon off
