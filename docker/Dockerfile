@@ -9,7 +9,7 @@ ENV JIRA_PASSWORD="dummy"
 
 # optional
 ENV SERVER_NAME="sunet.se"
-ENV GITHUB_CODE_REPO="git@github.com/SUNET/sunet-se-code"
+ENV GITHUB_CODE_REPO="git@github.com:SUNET/sunet-se-code"
 ENV GIT_BRANCH="staging"
 ENV REFRESH_USERNAME="editor"
 ENV JIRA_BASEURL="https://jira-test.sunet.se/rest/api/2"
