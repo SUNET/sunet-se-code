@@ -40,6 +40,8 @@ COPY ssh/server_key.pub /root/.ssh/server_key.pub
 
 ENV GIT_SSH_COMMAND="ssh -i /root/.ssh/server_key -o IdentitiesOnly=yes"
 
+RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+
 RUN git clone --branch $GIT_BRANCH $GITHUB_CODE_REPO /opt/sunet-se-code
 
 WORKDIR /opt/sunet-se-code
