@@ -106,8 +106,17 @@ and set to push to the staging branch.
 $ git clone git@github.com:SUNET/sunet-se-content.git
 ```
 
+Then clone the obsidian config repo and initialize it:
+
+```bash
+$ cd sunet-se-content
+$ git clone git@github.com:SUNET/sunet-se-obsidian.git .obsidian
+$ cd .obsidian
+$ make init
+```
+
 Open obsidian, and look for "open folder as vault" (from "open another vault"),
-and in the resulting dialog select the cloned repo.
+and in the resulting dialog select the cloned *content* repo.
 
 Go to the obsidian settings, and under "community plugins" click on "Sunet
 plugin". Here we have to enter the URL for the `refresh-content` endpoint of
