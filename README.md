@@ -99,11 +99,17 @@ The editor's machine needs to have git and obsidian installed.
 
 Clone the content repo, and make sure that changes committed in the local clone
 can be pushed to github. The obsidian plugin in charge of pushing changes
-assumes that `git push` is already provided with credentials (e.g., via ssh)
-and set to push to the staging branch.
+assumes that `git push` is already provided with credentials (e.g., via ssh).
 
 ```bash
 $ git clone git@github.com:SUNET/sunet-se-content.git
+$ git checkout staging
+```
+
+For development and testing purposes, it is possible to use a different git branch:
+
+```bash
+$ git checkout -b test-dev
 ```
 
 Then clone the obsidian config repo and initialize it:
@@ -123,5 +129,8 @@ plugin". Here we have to enter the URL for the `refresh-content` endpoint of
 the staging server (e.g. `https://staging.sunet.se/refresh-content`), and the
 username and password that have been set in the staging server as
 REFRESH_USERNAME and REFRESH_PASSWORD.
+
+To use a development git branch for the content, add it in the settings, in
+"Staging Git Branch". The `staging` branch is the default.
 
 After this, the editor should be all set to start working on the site.
