@@ -103,13 +103,15 @@ assumes that `git push` is already provided with credentials (e.g., via ssh).
 
 ```bash
 $ git clone git@github.com:SUNET/sunet-se-content.git
-$ git checkout staging
 ```
 
-For development and testing purposes, it is possible to use a different git branch:
+For development and testing purposes, it is possible to use a different git branch.
+This branch must exist already both locally and at github, so something like this
+should have been done:
 
 ```bash
 $ git checkout -b test-dev
+$ git push --set-upstream origin test-dev
 ```
 
 Then clone the obsidian config repo and initialize it:
@@ -130,7 +132,9 @@ the staging server (e.g. `https://staging.sunet.se/refresh-content`), and the
 username and password that have been set in the staging server as
 REFRESH_USERNAME and REFRESH_PASSWORD.
 
-To use a development git branch for the content, add it in the settings, in
-"Staging Git Branch". The `staging` branch is the default.
+To use a development git branch for the content, e.g. the `test-dev` branch we
+created above, add it in the settings, in "Staging Git Branch". The `staging`
+branch is the default. This branch should be provided to the staging server as
+GIT_BRANCH (see above).
 
 After this, the editor should be all set to start working on the site.
