@@ -68,7 +68,7 @@ Optional variables:
 - JIRA_PROJECT: JIRA projecct from which the tickets will be pulled. Default "TIC".
 - MAX_CLOSED_AGE: Only retrieve closed tickets that were closed less than this
   number of days ago. Default "30d".
-- SSH_PUBLIC_KEY: location in the container of the ssh public key to pull the content repo from github
+- SSH_PRIVATE_KEY_LOCATION: location in the container of the ssh public key to pull the content repo from github
   Default "/root/.ssh/server_key"
 
 So, a possible command to run the image:

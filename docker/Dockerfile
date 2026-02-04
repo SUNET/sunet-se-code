@@ -17,7 +17,7 @@ ENV JIRA_USERNAME="restsunetweb"
 ENV JIRA_TICKETS_OUTPUT="/tmp"
 ENV JIRA_PROJECT="TIC"
 ENV MAX_CLOSED_AGE="30d"
-ENV SSH_PUBLIC_KEY="/root/.ssh/server_key"
+ENV SSH_PRIVATE_KEY_LOCATION="/root/.ssh/server_key"
 
 # Install needed software
 
@@ -34,7 +34,7 @@ RUN apt-get -y update && \
     apt-get -y install --no-install-recommends openresty && \
     rm -rf /var/lib/apt/lists/*
 
-ENV GIT_SSH_COMMAND="ssh -i $SSH_PUBLIC_KEY -o IdentitiesOnly=yes"
+ENV GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
 
 RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
