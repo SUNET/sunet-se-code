@@ -31,17 +31,6 @@ $ git clone git@github.com:SUNET/sunet-se-code.git
 $ cd sunet-se-code/docker
 ```
 
-First we need a SSH key pair. We create it like this (without adding a
-passphrase when prompted):
-
-```bash
-$ mkdir ssh
-$ ssh-keygen -t ed25519 -C "info@sunet.se" -f "ssh/server_key"
-```
-
-Now pick the public key and add it to a github account with access to the
-sunet-se repos. We need to do this before building the docker image.
-
 Now we need to build the docker image:
 
 ```bash
@@ -79,6 +68,8 @@ Optional variables:
 - JIRA_PROJECT: JIRA projecct from which the tickets will be pulled. Default "TIC".
 - MAX_CLOSED_AGE: Only retrieve closed tickets that were closed less than this
   number of days ago. Default "30d".
+- SSH_PUBLIC_KEY: location in the container of the ssh public key to pull the content repo from github
+  Default "/root/.ssh/server_key"
 
 So, a possible command to run the image:
 
