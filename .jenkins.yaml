@@ -112,7 +112,7 @@ docker_name: sunet/sunet-se-code
 # "git-\${GIT_REVISION,length=8}", "ci-${env.name}-\${BUILD_NUMBER}" and "latest" will always be set
 docker_tags: ["latest"]
 # # Set Dockerfile directory
-docker_dockerfile_dir: "."
+docker_dockerfile_dir: "/docker"
 # A list of new line separated build-time variables, specified in the form "name=value".
 # docker_build_args: ~
 # # Force rebuild
