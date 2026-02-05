@@ -44,11 +44,11 @@ builders: [docker]
 # # Will set items in the list as downstream
 # downstream: []
 
-triggers:
-  # Build when push received to the master branch
-  github_push: true
-  # # Use cron syntax to periodically build project, eg. "@daily"
-  # cron: ~
+# triggers:
+#   # Build when push received to the master branch
+#   github_push: true
+#   # # Use cron syntax to periodically build project, eg. "@daily"
+#   # cron: ~
 
 # slack:
 #   # Default to send errors and back to normal to the devops channel
@@ -109,11 +109,11 @@ triggers:
 # Name that built docker image should have
 docker_name: sunet/sunet-se-code
 # # Tags that should be used
-# # "git-\${GIT_REVISION,length=8}", "ci-${env.name}-\${BUILD_NUMBER}" and "latest" will always be set
-# docker_tags: []
+# "git-\${GIT_REVISION,length=8}", "ci-${env.name}-\${BUILD_NUMBER}" and "latest" will always be set
+docker_tags: ["latest"]
 # # Set Dockerfile directory
-# docker_dockerfile_dir: "."
-# # A list of new line separated build-time variables, specified in the form "name=value".
+docker_dockerfile_dir: "."
+# A list of new line separated build-time variables, specified in the form "name=value".
 # docker_build_args: ~
 # # Force rebuild
 # docker_no_cache: true
