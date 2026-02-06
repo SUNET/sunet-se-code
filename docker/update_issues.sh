@@ -8,7 +8,7 @@ log() {
 }
 
 # Base repository directory
-repo_dir="/opt/sunet-se-code"
+base_dir="/opt/sunet-se"
 bin_dir="/usr/local/bin"
 
 # Start logging
@@ -21,7 +21,7 @@ set -e
 "${bin_dir}/get-jira-issues.sh" &>> "$log_file"
 log "Retrieved JIRA tickets."
 
-cd "$repo_dir" || exit 1
+cd "$base_dir" || exit 1
 
 # Activate virtual environment and build the site
 source venv/bin/activate

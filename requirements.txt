@@ -17,7 +17,7 @@ ordered-set==4.1.0
 pelican==4.11.0.post0
 pelican-i18n-subsites==1.0.0
 pelican-webassets==2.1.0
-Pygments==2.19.2
+Pygments==2.18.0
 python-dateutil==2.9.0.post0
 pytz==2025.2
 PyYAML==6.0.3

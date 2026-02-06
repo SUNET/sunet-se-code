@@ -9,7 +9,7 @@ ENV JIRA_PASSWORD="dummy"
 
 # optional
 ENV SERVER_NAME="sunet.se"
-ENV GITHUB_CODE_REPO="git@github.com:SUNET/sunet-se-code.git"
+ENV GITHUB_CONTENT_REPO="git@github.com:SUNET/sunet-se-content.git"
 ENV GIT_BRANCH="staging"
 ENV REFRESH_USERNAME="editor"
 ENV JIRA_BASEURL="https://jira-test.sunet.se/rest/api/2"
@@ -18,6 +18,7 @@ ENV JIRA_TICKETS_OUTPUT="/tmp"
 ENV JIRA_PROJECT="TIC"
 ENV MAX_CLOSED_AGE="30d"
 ENV SSH_PRIVATE_KEY_LOCATION="/root/.ssh/server_key"
+ENV GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
 
 # Install needed software
 
@@ -34,40 +35,41 @@ RUN apt-get -y update && \
     apt-get -y install --no-install-recommends openresty && \
     rm -rf /var/lib/apt/lists/*
 
-ENV GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
+RUN mkdir /opt/sunet-se
 
-RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+WORKDIR /opt/sunet-se
 
-RUN git clone --branch $GIT_BRANCH $GITHUB_CODE_REPO /opt/sunet-se-code
-
-WORKDIR /opt/sunet-se-code
-
-RUN git submodule init
-RUN git submodule update
+COPY ./jinja2_filters /opt/sunet-se/jinja2_filters
+COPY ./plugins /opt/sunet-se/plugins
+COPY ./theme /opt/sunet-se/theme
+COPY ./Makefile /opt/sunet-se/Makefile
+COPY ./babel.cfg /opt/sunet-se/babel.cfg
+COPY ./package-lock.json /opt/sunet-se/package-lock.json
+COPY ./package.json /opt/sunet-se/package.json
+COPY ./pelicanconf.py /opt/sunet-se/pelicanconf.py
+COPY ./postcss.config.js /opt/sunet-se/postcss.config.js
+COPY ./publishconf.py /opt/sunet-se/publishconf.py
+COPY ./requirements.txt /opt/sunet-se/requirements.txt
+COPY ./tasks.py /opt/sunet-se/tasks.py
 
 RUN python3 -m venv venv
 
 RUN . venv/bin/activate && pip install -r requirements.txt
 RUN npm install
 
-RUN . venv/bin/activate && make pristine
-
-RUN git config --global --add safe.directory /opt/sunet-se-code
-RUN git config --global --add safe.directory /opt/sunet-se-code/sunet-se-content
-
 RUN mkdir /opt/templates
 
-COPY ./nginx.conf /opt/templates/nginx.conf
-COPY ./htpasswd /opt/templates/htpasswd
-COPY ./update_site.sh /opt/templates/update_site.sh
-COPY ./get-jira-issues.sh /opt/templates/get-jira-issues.sh
-COPY ./update_issues.sh /usr/local/bin/update_issues.sh
+COPY ./docker/nginx.conf /opt/templates/nginx.conf
+COPY ./docker/htpasswd /opt/templates/htpasswd
+COPY ./docker/update_site.sh /opt/templates/update_site.sh
+COPY ./docker/get-jira-issues.sh /opt/templates/get-jira-issues.sh
+COPY ./docker/update_issues.sh /usr/local/bin/update_issues.sh
 RUN chmod 755 /usr/local/bin/update_issues.sh
 
-COPY ./refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
+COPY ./docker/refresh.lua /usr/local/openresty/nginx/conf/refresh.lua
 RUN chmod 755 /usr/local/openresty/nginx/conf/refresh.lua
 
-COPY ./start.sh /start.sh
+COPY ./docker/start.sh /start.sh
 
 EXPOSE 80
 

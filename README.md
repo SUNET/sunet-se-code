@@ -28,20 +28,13 @@ Clone the code repo and cd to the docker container:
 
 ```bash
 $ git clone git@github.com:SUNET/sunet-se-code.git
-$ cd sunet-se-code/docker
+$ cd sunet-se-code
 ```
 
 Now we need to build the docker image:
 
 ```bash
 $ docker build -t sunet-se:latest .
-```
-
-Once the image is built, we can remove the generated ssh keys from the host (or
-we can keep them for future code updates)
-
-```bash
-$ rm -rf ssh
 ```
 
 Then, to run a container, we need to provide a few environment variables.
@@ -57,8 +50,8 @@ Required variables:
 Optional variables:
 
 - SERVER_NAME The hostname of the service, e.g. staging.sunet.se. Default "sunet.se"
-- GITHUB_CODE_REPO: Github repo with the sunet.se code. Default
-  "git@github.com:SUNET/sunet-se-code"
+- GITHUB_CONTENT_REPO: Github repo with the sunet.se content. Default
+  "git@github.com:SUNET/sunet-se-content.git"
 - GIT_BRANCH: the git branch of the content repo that will be used to build the
   site. Default "staging".
 - REFRESH_USERNAME The basic auth username for the `/refresh-content` endpoint.
@@ -71,10 +64,14 @@ Optional variables:
 - SSH_PRIVATE_KEY_LOCATION: location in the container of the ssh public key to pull the content repo from github
   Default "/root/.ssh/server_key"
 
+Also, since the sunet content repo is private at github, we need to mount the ssh keys
+on the container. We mount the directory rw since we will want to add github to known_hosts.
+So here we assume that ./ssh contains an ssh key that has permission to pull from the content repo.
+
 So, a possible command to run the image:
 
 ```bash
-$ docker run -d -p 80:80 --env SUNET_JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
+$ docker run -d -p 80:80 --volume ./ssh:/root/.ssh:rw --env SUNET_JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
 ```
 
 Finally, to retrieve JIRA issues to display them in the `arenden` secion of the site,
@@ -94,6 +91,8 @@ assumes that `git push` is already provided with credentials (e.g., via ssh).
 
 ```bash
 $ git clone git@github.com:SUNET/sunet-se-content.git
+$ cd sunet-se-content
+$ git checkout staging
 ```
 
 For development and testing purposes, it is possible to use a different git branch.
@@ -105,10 +104,11 @@ $ git checkout -b test-dev
 $ git push --set-upstream origin test-dev
 ```
 
-Then clone the obsidian config repo and initialize it:
+Then the server docker container should be run with an env var `--env GIT_BRANCH=test-dev`.
+
+Then clone the obsidian config repo within the content repo and initialize it:
 
 ```bash
-$ cd sunet-se-content
 $ git clone git@github.com:SUNET/sunet-se-obsidian.git .obsidian
 $ cd .obsidian
 $ make init

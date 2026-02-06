@@ -15,8 +15,16 @@ if [ -z "$SERVER_NAME" ]; then
    export SERVER_NAME="sunet.se"
 fi
 
-if [ -z "$GITHUB_CODE_REPO" ]; then
-  export GITHUB_CODE_REPO="https://github.com/SUNET/sunet-se-code"
+if [ -z "$SSH_PRIVATE_KEY_LOCATION" ]; then
+  export SSH_PRIVATE_KEY_LOCATION="/root/.ssh/server_key"
+fi
+
+if [ -z "$GIT_SSH_COMMAND" ]; then
+  export GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
+fi
+
+if [ -z "$GITHUB_CONTENT_REPO" ]; then
+  export GITHUB_CONTENT_REPO="https://github.com/SUNET/sunet-se-content.git"
 fi
 
 if [ -z "$GIT_BRANCH" ]; then
@@ -47,9 +55,17 @@ if [ -z "$MAX_CLOSED_AGE" ]; then
   export MAX_CLOSED_AGE="30d"
 fi
 
+ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+
+git clone --branch $GIT_BRANCH $GITHUB_CONTENT_REPO /opt/sunet-se/sunet-se-content
+
+git config --global --add safe.directory /opt/sunet-se/sunet-se-content
+
+cd /opt/sunet-se && source venv/bin/activate && make pristine
+
 envsubst '$SERVER_NAME' < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
 
-envsubst '$GIT_BRANCH' < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
+envsubst '$GIT_BRANCH $SSH_PRIVATE_KEY_LOCATION' < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
 chmod 755 /usr/local/bin/update_site.sh
 
 JIRA_VARS='$JIRA_BASEURL $JIRA_USERNAME $JIRA_PASSWORD $JIRA_TICKETS_OUTPUT $JIRA_PROJECT $MAX_CLOSED_AGE'

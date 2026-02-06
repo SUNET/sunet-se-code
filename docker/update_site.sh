@@ -8,7 +8,7 @@ log() {
 }
 
 # Base repository directory
-repo_dir="/opt/sunet-se-code"
+base_dir="/opt/sunet-se"
 bin_dir="/usr/local/bin"
 
 # Start logging
@@ -17,17 +17,10 @@ log "Update started."
 # Ensure the script exits if any commands fail
 set -e
 
-# Change directory to repository base
-cd "$repo_dir" || exit 1
-
-export GIT_SSH_COMMAND="ssh -i /root/.ssh/server_key -o IdentitiesOnly=yes"
-
-# Pull changes from the remote origin
-git pull &>> "$log_file"
-log "Pulled changes from remote."
+export GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
 
 # Switch to content directory
-cd "${repo_dir}/sunet-se-content" || exit 1
+cd "${base_dir}/sunet-se-content" || exit 1
 
 # Stash any local changes (optional, uncomment if needed)
 # git stash push --include-untracked &>> "$log_file"
@@ -38,7 +31,7 @@ git checkout "$GIT_BRANCH" &>> "$log_file"
 git pull &>> "$log_file"
 log "Updated content repository."
 
-cd "$repo_dir" || exit 1
+cd "$base_dir" || exit 1
 
 # Activate virtual environment and build the site
 source venv/bin/activate
