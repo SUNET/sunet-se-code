@@ -11,7 +11,9 @@ docker_tags:
 docker_name: sunet/sunet-se
 
 extra_jobs:
-  - git:
+  - name: sunet-se
+
+    git:
       branch: staging
 
     builders:
