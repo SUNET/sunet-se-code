@@ -1,3 +1,4 @@
+name: sunet-se
 
 git:
   branch: main
@@ -7,9 +8,7 @@ builders:
 docker_tags:
   - stable
 
-docker_name: sunet/sunet-se-code
-
-docker_dockerfile_dir: docker/
+docker_name: sunet/sunet-se
 
 extra_jobs:
   - git:
