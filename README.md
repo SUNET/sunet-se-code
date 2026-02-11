@@ -41,7 +41,7 @@ Then, to run a container, we need to provide a few environment variables.
 
 Required variables:
 
-- SUNET_JIRA_PASSWORD The password for the Sunet JIRA API to pull the tickets
+- JIRA_PASSWORD The password for the Sunet JIRA API to pull the tickets
   for the arenden section. Obtained from the JIRA operators.
 - REFRESH_PASSWORD The basic auth password for the `/refresh-content` endpoint.
   This is created anew here, and then set (as desccribed below) in the editor's
