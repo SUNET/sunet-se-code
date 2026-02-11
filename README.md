@@ -71,7 +71,7 @@ So here we assume that ./ssh contains an ssh key that has permission to pull fro
 So, a possible command to run the image:
 
 ```bash
-$ docker run -d -p 80:80 --volume ./ssh:/root/.ssh:rw --env SUNET_JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
+$ docker run -d -p 80:80 --volume ./ssh:/root/.ssh:rw --env JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
 ```
 
 Finally, to retrieve JIRA issues to display them in the `arenden` secion of the site,
