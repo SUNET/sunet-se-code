@@ -20,7 +20,7 @@ ENV GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
 
 RUN apt-get -y update && apt-get -y upgrade && \
     apt-get install -y curl wget gnupg ca-certificates git nodejs ssh \
-    python3 python3-venv python3-pip npm openssl gettext-base && \
+    python3 python3-venv python3-pip npm openssl gettext-base jq && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -O - https://openresty.org/package/pubkey.gpg | apt-key add -
