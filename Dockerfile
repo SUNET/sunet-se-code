@@ -3,10 +3,6 @@ FROM debian:bookworm
 ENV DEBIAN_FRONTEND noninteractive
 ENV NGINX_VERSION 1.25.3.1
 
-# required
-ENV REFRESH_PASSWORD="dummy"
-ENV JIRA_PASSWORD="dummy"
-
 # optional
 ENV SERVER_NAME="sunet.se"
 ENV GITHUB_CONTENT_REPO="git@github.com:SUNET/sunet-se-content.git"
