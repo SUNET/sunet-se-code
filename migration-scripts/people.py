@@ -35,6 +35,7 @@ with open(json_filename, 'r') as json_file:
             file.write(f"Title: {person['title']['rendered']}\n")
             file.write(f"Date: {person['date']}\n")
             file.write(f"Modified: {person['modified']}\n")
+            file.write("Type: person\n")
             file.write(f"Slug: {person['slug']}\n")
             file.write(f"Status: {status}\n")
             file.write(f"Lang: {lang}\n")
