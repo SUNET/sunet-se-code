@@ -219,9 +219,12 @@ def build_tickets(pelican):
             path = os.path.join(tickets_path, filename)
             print(f"path {path}")
             with open(path, 'w') as f:
+                f.write("---\n")
                 f.write(f"Title: {ticket['key']}\n")
                 f.write(f"Slug: arenden/{ticket['key']}\n")
                 f.write(f"Summary: {ticket['fields']['summary']}\n")
+                f.write("Type: page\n")
+                f.write("---\n")
 
     pelican.settings['ES_TICKETS']['scheduled'] = sched_tickets
     pelican.settings['ES_TICKETS']['unscheduled'] = unsched_tickets
