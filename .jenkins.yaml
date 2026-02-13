@@ -1,5 +1,5 @@
-name: sunet-se
 docker_name: sunet/sunet-se
+
 builders:
   - docker
 
@@ -9,8 +9,13 @@ git:
 docker_tags:
   - stable
 
+triggers:
+  github_push: false
+
 extra_jobs:
-  - git:
+  - name: sunet-se-code-test
+
+    git:
       branch: dev
 
     docker_tags:
@@ -18,4 +23,3 @@ extra_jobs:
 
     triggers:
       github_push: true
-# test
