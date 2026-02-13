@@ -18,8 +18,7 @@ extra_jobs:
     git:
       branch: dev
 
-    docker_tags:
-      - latest
+    docker_tags: []
 
     triggers:
       github_push: true
