@@ -5,7 +5,7 @@
         {% set carry = namespace(i = 0) %}
         {% for page in pages if carry.i < 6 %}
           {% set fragments = page.slug.split('/') %}
-          {% if fragments[0] == 'services' and fragments|length() > 2 %}
+          {% if fragments[0] == 'services' and fragments|length() > 2 and page.sticky == 'true' %}
             {% include 'services-list-item.html' %}
             {% set carry.i = carry.i + 1 %}
           {% endif %}
