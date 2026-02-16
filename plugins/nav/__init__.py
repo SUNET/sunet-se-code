@@ -59,35 +59,29 @@ def build_categories(pelican):
         del pelican.settings['ES_SCATS']
 
     base_path = pelican.settings['INSTALL_DIR']
-    service_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'service-categories')
-    service_filenames = os.listdir(service_path)
-    projekt_path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'projekt-categories')
-    projekt_filenames = os.listdir(projekt_path)
+    path = os.path.join(base_path, CONTENT_DIR, 'navigation', 'service-categories')
+    filenames = os.listdir(path)
 
-    service_cats = {}
-    projekt_cats = {}
+    cats = {}
 
-    for path, filenames, cats in (service_path, service_filenames, service_cats), (projekt_path, projekt_filenames, projekt_cats):
+    for filename in filenames:
+        cat_path = os.path.join(path, filename)
+        with open(cat_path, 'r') as f:
+            precat = yaml.load(f, Loader=Loader)
+            cat = {'title': {}}
+            for key in precat:
+                if key.startswith('Title'):
+                    lang = key.split('_')[1]
+                    cat['title'][lang] = precat[key]
+                elif precat[key] is not None:
+                    cat[key.lower()] = precat[key]
+                else:
+                    cat[key.lower()] = ''
 
-        for filename in filenames:
-            cat_path = os.path.join(path, filename)
-            with open(cat_path, 'r') as f:
-                precat = yaml.load(f, Loader=Loader)
-                cat = {'title': {}}
-                for key in precat:
-                    if key.startswith('Title'):
-                        lang = key.split('_')[1]
-                        cat['title'][lang] = precat[key]
-                    elif precat[key] is not None:
-                        cat[key.lower()] = precat[key]
-                    else:
-                        cat[key.lower()] = ''
-
-            cats[cat['slug']] = cat
+        cats[cat['slug']] = cat
 
     pelican.settings['ES_SCATS'] = {
-        'services': service_cats,
-        'projekt': projekt_cats,
+        'services': cats,
     }
 
 
@@ -262,22 +256,16 @@ def filter_categories(page_generator):
     settings = page_generator.settings
 
     service_cat_slugs = []
-    projekt_cat_slugs = []
 
     for page in pages:
         if page.type == 'service':
             service_cat_slugs.append(page.category)
-        elif page.type == 'projekt':
-            projekt_cat_slugs.append(page.category)
 
     all_service = settings['ES_SCATS']['services']
-    all_projekt = settings['ES_SCATS']['projekt']
 
     service_cats = {slug: all_service[slug] for slug in all_service if slug in service_cat_slugs}
-    projekt_cats = {slug: all_projekt[slug] for slug in all_projekt if slug in projekt_cat_slugs}
 
     settings['ES_SCATS']['services'] = service_cats
-    settings['ES_SCATS']['projekt'] = projekt_cats
 
 
 def register():

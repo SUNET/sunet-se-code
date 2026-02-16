@@ -73,6 +73,16 @@
 		}
 	}
 }
+.projekt-listing {
+	padding-top: 50px !important;
+	padding-bottom: 50px !important;
+	.filter-container {
+		ul.listStyle-toggle {
+			position: inherit;
+			justify-content: end;
+		}
+	}
+}
 #more-news-button {
 	cursor: pointer;
 	line-height: 1;
