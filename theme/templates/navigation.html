@@ -1,4 +1,10 @@
-<div class="nav-wrapper">
+<button class="menu-button"
+  id="navigation-button-small"
+  onClick="toggleNavigation"
+  title="{% trans %}Meny{% endtrans %}">
+</button>
+
+<div class="nav-wrapper" id="navigation-wrapper-small">
   <nav aria-label="{% trans %}Huvudmeny{% endtrans %}">
     <ul class="main-nav">
       {% for item in ES_MENUS['main-menu'][LANG] %}

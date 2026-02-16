@@ -19,13 +19,11 @@
       // opening and closing the accordion elements in the footer
       const elemsC = document.getElementsByClassName('accordion');
       const elems = Array.from(elemsC);
-      console.log(`Found ${elems.length} accordions`);
       elems.forEach(elem => {
         elem.addEventListener('click', () => {
           elem.classList.toggle('open');
           const opsC = elem.getElementsByTagName('svg');
           const ops = Array.from(opsC);
-          console.log(`Found ${ops.length} svgs`);
           ops.forEach(op => {
             op.classList.toggle('d-none');
           });

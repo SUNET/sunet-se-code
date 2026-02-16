@@ -1,0 +1,16 @@
+<script type="text/javascript">
+  window.addEventListener('load', (e) => {
+    const navButton = document.getElementById("navigation-button-small");
+    const navWrapper = document.getElementById("navigation-wrapper-small");
+
+    navButton.addEventListener('click', (e) => {
+      const isActive = navButton.classList.contains('active');
+      navButton.classList.toggle('active');
+      if (isActive) {
+        navWrapper.style.display = 'none';
+      } else {
+        navWrapper.style.display = 'inherit';
+      }
+    });
+  });
+</script>
