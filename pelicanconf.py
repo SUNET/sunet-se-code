@@ -49,6 +49,8 @@ I18N_SUBSITES = {
     'en': {
         'SITENAME': 'Sunet',
         'LANG': 'en',
+        'THEME_STATIC_PATHS': ['static', 'assets'],
+        'THEME_STATIC_DIR': 'static',
     }
 }
 
