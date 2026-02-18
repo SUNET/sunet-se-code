@@ -22,7 +22,7 @@ with open(json_filename, 'r') as json_file:
         # get slug, open file
         slug = page['slug']
         lang = page['lang']
-        if lang != 'sv':
+        if lang != 'en':
             continue
 
         status = page['status']
@@ -38,14 +38,17 @@ with open(json_filename, 'r') as json_file:
                 print(slug)
                 continue
             # get md, put in file
+            file.write("---\n")
             file.write(f"Title: {page['title']['rendered']}\n")
             file.write(f"Date: {page['date']}\n")
             file.write(f"Modified: {page['modified']}\n")
-            file.write(f"Slug: {page['slug']}\n")
+            file.write("Type: page\n")
+            file.write(f"Slug: en/about-sunet/{page['slug']}\n")
             file.write(f"Status: {status}\n")
             file.write("Authors: \n")
             file.write(f"Lang: {lang}\n")
-            file.write(f"Translation: {translation}\n\n")
+            file.write(f"Translation: {translation}\n")
+            file.write("---\n\n")
 
             # get text, convert to markdown, write
             file.write(md)
