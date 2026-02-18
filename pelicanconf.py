@@ -16,6 +16,8 @@ INSTALL_DIR = os.path.split(os.path.abspath(__name__))[0]
 
 PAGE_PATHS = ['pages']
 
+PAGE_ORDER_BY = 'reversed-date'
+
 ARTICLE_PATHS = ['articles']
 
 PAGE_EXCLUDES = ['templates', 'navigation', 'wp-content', 'people', '_Documentation']
@@ -34,8 +36,6 @@ JINJA_FILTERS = {'format_date': format_date}
 
 THEME_STATIC_PATHS = ['static', 'assets']
 THEME_STATIC_DIR = 'static'
-
-# OUTPUT_RETENTION = ['static']
 
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["i18n_subsites", "webassets", "nav"]
