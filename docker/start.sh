@@ -57,7 +57,7 @@ fi
 
 ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
-git clone --branch $GIT_BRANCH $GITHUB_CONTENT_REPO /opt/sunet-se/sunet-se-content
+git clone --branch $GIT_BRANCH --depth 1 $GITHUB_CONTENT_REPO /opt/sunet-se/sunet-se-content
 
 git config --global --add safe.directory /opt/sunet-se/sunet-se-content
 
