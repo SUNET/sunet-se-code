@@ -10,7 +10,7 @@ docker_tags:
   - stable
 
 triggers:
-  github_push: true
+  github_push: false
 
 extra_jobs:
   - name: sunet-se-code-test
