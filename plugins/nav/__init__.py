@@ -13,7 +13,6 @@ except ImportError:
     from yaml import Loader
 
 from pelican import signals
-from pelican.contents import Content
 
 
 CONTENT_DIR = 'sunet-se-content'
@@ -140,7 +139,7 @@ def build_footer(pelican):
         with open(entry_path, 'r') as f:
 
             if entry_name in ('address', 'address-meta'):
-                footer[entry_name][lang] = f.read()
+                footer[entry_name][lang] = f.read().replace('  \n', '<br>')
             else:
                 data = yaml.load(f, Loader=Loader)
                 footer['entries'][lang].append(data)
