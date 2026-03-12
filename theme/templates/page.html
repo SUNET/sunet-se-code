@@ -58,12 +58,6 @@
     {% else %}
       {% include 'plain-page.html' %}
     {% endif %}
-  {% elif ns.section == 'kontakt' %}
-    {% if ns.subsection == 'medarbetare' %}
-      {% include 'medarbetare.html' %}
-    {% else %}
-      {% include 'plain-page.html' %}
-    {% endif %}
   {% else %}
     {% include 'plain-page.html' %}
   {% endif %}
