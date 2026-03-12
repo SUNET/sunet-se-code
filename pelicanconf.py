@@ -60,6 +60,9 @@ LANGS.extend(I18N_SUBSITES.keys())
 PAGE_URL = '{slug}/'
 PAGE_SAVE_AS = '{slug}/index.html'
 
+ARTICLE_URL = '{slug}/'
+ARTICLE_SAVE_AS = '{slug}/index.html'
+
 WEBASSETS_CONFIG = [
     ('POSTCSS_BIN', f'{INSTALL_DIR}/node_modules/postcss-cli/index.js'),
 ]
