@@ -36,12 +36,7 @@
       {% include 'service.html' %}
     {% endif %}
   {% elif ns.section == 'projekt' %}
-    {% if ns.subsubsection == 'none' %}
-      {% include 'projekt-list-script.html' %}
-      {% include 'projekt-front.html' %}
-    {% else %}
-      {% include 'projekt.html' %}
-    {% endif %}
+    {% include 'projekt.html' %}
   {% elif ns.section == 'om-sunet' %}
     {% if ns.subsection == 'aktuellt' %}
       {% if ns.subsubsection == 'none' %}
