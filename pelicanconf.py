@@ -30,9 +30,18 @@ JINJA_ENVIRONMENT = {
     'extensions': ['jinja2.ext.i18n'],
 }
 sys.path.append('jinja2_filters')
-
 from format_date import format_date
-JINJA_FILTERS = {'format_date': format_date}
+
+def truncate_words(s, num_words=55, end='[&hellip;]'):
+    words = s.split()
+    if len(words) <= num_words:
+        return s
+    return ' '.join(words[:num_words]) + f" {end}"
+
+JINJA_FILTERS = {
+    'truncate_words': truncate_words,
+    'format_date': format_date,
+}
 
 THEME_STATIC_PATHS = ['static', 'assets']
 THEME_STATIC_DIR = 'static'
