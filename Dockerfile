@@ -15,6 +15,7 @@ ENV JIRA_PROJECT="SUNET"
 ENV MAX_CLOSED_AGE="30d"
 ENV SSH_PRIVATE_KEY_LOCATION="/root/.ssh/server_key"
 ENV GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY_LOCATION -o IdentitiesOnly=yes"
+ENV CERTNAME="sunet.se"
 
 # Install needed software
 
@@ -67,6 +68,6 @@ RUN chmod 755 /usr/local/openresty/nginx/conf/refresh.lua
 
 COPY ./docker/start.sh /start.sh
 
-EXPOSE 80
+EXPOSE 443
 
 CMD ["bash", "/start.sh"]

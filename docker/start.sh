@@ -55,6 +55,10 @@ if [ -z "$MAX_CLOSED_AGE" ]; then
   export MAX_CLOSED_AGE="30d"
 fi
 
+if [ -z "$CERTNAME" ]; then
+   export CERTNAME="sunet.se"
+fi
+
 ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
 git clone --branch $GIT_BRANCH --depth 1 $GITHUB_CONTENT_REPO /opt/sunet-se/sunet-se-content
@@ -63,7 +67,7 @@ git config --global --add safe.directory /opt/sunet-se/sunet-se-content
 
 cd /opt/sunet-se && source venv/bin/activate && make pristine
 
-envsubst '$SERVER_NAME' < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
+envsubst '$SERVER_NAME $CERTNAME' < /opt/templates/nginx.conf > /usr/local/openresty/nginx/conf/nginx.conf
 
 envsubst '$GIT_BRANCH $SSH_PRIVATE_KEY_LOCATION' < /opt/templates/update_site.sh > /usr/local/bin/update_site.sh
 chmod 755 /usr/local/bin/update_site.sh

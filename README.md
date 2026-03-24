@@ -63,15 +63,32 @@ Optional variables:
   number of days ago. Default "30d".
 - SSH_PRIVATE_KEY_LOCATION: location in the container of the ssh public key to pull the content repo from github
   Default "/root/.ssh/server_key"
+- CERTNAME: Name of the TLS certificate and key, so NGINX will try to find them at
+  `/etc/ssl/certs/${CERTNAME}.crt` and `/etc/ssl/private/${CERTNAME}.key`.
+  Default: sunet.se
 
 Also, since the sunet content repo is private at github, we need to mount the ssh keys
 on the container. We mount the directory rw since we will want to add github to known_hosts.
 So here we assume that ./ssh contains an ssh key that has permission to pull from the content repo.
 
+Likewise for HTTPS we need to provide the TLS cert and private key, so here we assume that `./ssl`
+contains those:
+
+```bash
+$ tree ssl
+ssl
+├── certs
+│   └── sunet.se.crt
+└── private
+    └── sunet.se.key
+
+3 directories, 2 files
+```
+
 So, a possible command to run the image:
 
 ```bash
-$ docker run -d -p 80:80 --volume ./ssh:/root/.ssh:rw --env JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
+$ docker run -d -p 443:443 --volume ./ssh:/root/.ssh:rw --volume ./ssl:/etc/ssl:ro --env JIRA_PASSWORD=secret1 --env REFRESH_PASSWORD=secret2 --name sunet sunet-se:latest
 ```
 
 Finally, to retrieve JIRA issues to display them in the `arenden` secion of the site,
