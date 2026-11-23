@@ -1,7 +1,7 @@
 FROM debian:bookworm
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV NGINX_VERSION 1.25.3.1
+ENV NGINX_VERSION 1.31.9
 
 # optional
 ENV SERVER_NAME="sunet.se"
